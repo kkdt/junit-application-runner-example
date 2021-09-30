@@ -1,0 +1,5 @@
+
+dependencies {
+    compile 'log4j:log4j:1.2.17'
+    implementation 'org.springframework:spring-context:5.3.10'
+}

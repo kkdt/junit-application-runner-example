@@ -1,0 +1,11 @@
+
+apply plugin: 'application'
+
+application {
+    mainClassName = 'example.test.application.Application'
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter:2.5.5'
+    compile project(':test-api')
+}

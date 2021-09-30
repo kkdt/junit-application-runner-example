@@ -1,0 +1,30 @@
+#!/bin/bash
+#
+
+__dir="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+__evaluate="false"
+__suspend="n"
+
+while [ "$1" != "" ]; do
+  case "${1}" in
+    "--evaluate")
+      shift
+      __evaluate="${1}"
+      ;;
+    "--suspend")
+      __suspend="y"
+      ;;
+    *)
+      echo "ERROR: unknown parameter: $1"
+      exit 1
+      ;;
+  esac
+  shift
+done
+
+export JAVA_OPTS="\
+-Dtest.application.evaluate=${__evaluate} \
+-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=${__suspend},address=8000
+"
+
+${__dir}/bin/test-application

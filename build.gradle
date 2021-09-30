@@ -1,0 +1,15 @@
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    dependencies {
+        compile('junit:junit:4.12')
+        testImplementation 'junit:junit:4.12'
+    }
+}
