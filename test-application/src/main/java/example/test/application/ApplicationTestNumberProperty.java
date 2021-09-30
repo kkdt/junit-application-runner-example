@@ -13,7 +13,8 @@ import test.api.Integration;
  */
 @RunWith(DefaultIntegrationRunner.class)
 @Integration(
-    bean = "applicationTestNumberProperty"
+    bean = "applicationTestNumberProperty",
+    description = "Test the \"--number\" option from runscript"
 )
 @Component
 public class ApplicationTestNumberProperty {
