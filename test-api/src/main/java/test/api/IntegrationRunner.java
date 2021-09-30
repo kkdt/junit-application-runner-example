@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
 
 public class IntegrationRunner {
     private static final Logger logger = Logger.getLogger(IntegrationRunner.class);
@@ -22,6 +23,6 @@ public class IntegrationRunner {
         logger.info(String.format("Number of integration tests: %s", classes.size()));
         JUnitCore junit = new JUnitCore();
         junit.addListener(new IntegrationRecorder());
-        junit.run(classes.toArray(new Class<?>[0]));
+        Result results = junit.run(classes.toArray(new Class<?>[0]));
     }
 }

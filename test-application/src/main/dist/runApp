@@ -3,7 +3,8 @@
 
 __dir="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 __evaluate="false"
-__suspend="n"
+__debug=""
+__suspend=",suspend=n"
 
 while [ "$1" != "" ]; do
   case "${1}" in
@@ -12,7 +13,10 @@ while [ "$1" != "" ]; do
       __evaluate="${1}"
       ;;
     "--suspend")
-      __suspend="y"
+      __suspend=",suspend=y"
+      ;;
+    "--debug")
+      __debug="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,address=8000"
       ;;
     *)
       echo "ERROR: unknown parameter: $1"
@@ -22,9 +26,16 @@ while [ "$1" != "" ]; do
   shift
 done
 
-export JAVA_OPTS="\
+if [ ! -z "${__debug}" ]; then
+  export JAVA_OPTS="\
 -Dtest.application.evaluate=${__evaluate} \
--Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=${__suspend},address=8000
+${__debug}${__suspend}
 "
+else
+  export JAVA_OPTS="\
+-Dtest.application.evaluate=${__evaluate}
+"
+fi
+
 
 ${__dir}/bin/test-application
