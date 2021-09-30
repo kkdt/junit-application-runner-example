@@ -3,6 +3,7 @@
 
 __dir="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 __evaluate="false"
+__number="-2"
 __debug=""
 __suspend=",suspend=n"
 
@@ -11,6 +12,10 @@ while [ "$1" != "" ]; do
     "--evaluate")
       shift
       __evaluate="${1}"
+      ;;
+    "--number")
+      shift
+      __number="${1}"
       ;;
     "--suspend")
       __suspend=",suspend=y"
@@ -29,11 +34,13 @@ done
 if [ ! -z "${__debug}" ]; then
   export JAVA_OPTS="\
 -Dtest.application.evaluate=${__evaluate} \
+-Dtest.application.applicationNumber=${__number}
 ${__debug}${__suspend}
 "
 else
   export JAVA_OPTS="\
 -Dtest.application.evaluate=${__evaluate}
+-Dtest.application.applicationNumber=${__number}
 "
 fi
 

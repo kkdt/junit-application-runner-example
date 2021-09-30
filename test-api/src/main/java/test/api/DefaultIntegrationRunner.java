@@ -1,6 +1,5 @@
 package test.api;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import org.junit.Test;
 import org.junit.runner.Description;
@@ -9,11 +8,14 @@ import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunNotifier;
 import test.api.runtime.ApplicationContextHolder;
 
-public class ApplicationContextRunner extends Runner {
+/**
+ * The base runner of {@link Integration} test classes.
+ */
+public class DefaultIntegrationRunner extends Runner {
     private final Class<?> c;
     private Integration annotation;
 
-    public ApplicationContextRunner(Class<?> c) {
+    public DefaultIntegrationRunner(Class<?> c) {
         this.c = c;
         this.annotation = c.getAnnotation(Integration.class);
     }
@@ -25,7 +27,7 @@ public class ApplicationContextRunner extends Runner {
 
     @Override
     public void run(RunNotifier notifier) {
-        Object testSubject = getTestSubject();
+        Object testSubject = getSubject();
         for (Method method : testSubject.getClass().getMethods()) {
             String methodName = method.getName();
             String className = testSubject.getClass().getName();
@@ -35,7 +37,7 @@ public class ApplicationContextRunner extends Runner {
                 try {
                     method.invoke(testSubject);
                 } catch (Exception e) {
-                    Failure failure = new Failure(description, e);
+                    Failure failure = new Failure(description, e.getCause() != null ? e.getCause() : e);
                     notifier.fireTestFailure(failure);
                 }
                 notifier.fireTestFinished(description);
@@ -43,7 +45,12 @@ public class ApplicationContextRunner extends Runner {
         }
     }
 
-    protected Object getTestSubject() {
+    /**
+     * Helper method to obtain the "subject under test" object.
+     *
+     * @return the bean or the class itself.
+     */
+    protected Object getSubject() {
         if(annotation != null && ApplicationContextHolder.get() != null) {
             return ApplicationContextHolder.get().getBean(annotation.bean());
         }

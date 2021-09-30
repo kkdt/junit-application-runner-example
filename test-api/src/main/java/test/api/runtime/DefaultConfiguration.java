@@ -13,4 +13,9 @@ public class DefaultConfiguration {
     public ApplicationContextHolder applicationContextHolder() {
         return new ApplicationContextHolder();
     }
+
+    @Bean
+    public IntegrationContext integrationContext() {
+        return new IntegrationContext();
+    }
 }

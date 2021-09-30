@@ -6,10 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import test.api.IntegrationProcessor;
+import org.springframework.context.annotation.Import;
+import test.api.DefaultIntegrationLocator;
 import test.api.runtime.ApplicationContextHolder;
+import test.api.runtime.DefaultConfiguration;
 
+/**
+ * Imports the {@link DefaultConfiguration} to get all core integration components and explicitly exposes the
+ * {@link DefaultIntegrationLocator} in this application to run all integration tests.
+ */
 @Configuration
+@Import({DefaultConfiguration.class})
 public class ApplicationConfiguration implements InitializingBean {
     private static final Logger logger = Logger.getLogger(ApplicationConfiguration.class);
 
@@ -23,7 +30,7 @@ public class ApplicationConfiguration implements InitializingBean {
     }
 
     @Bean
-    public IntegrationProcessor integrationProcessor() {
-        return new IntegrationProcessor();
+    public DefaultIntegrationLocator integrationProcessor() {
+        return new DefaultIntegrationLocator();
     }
 }

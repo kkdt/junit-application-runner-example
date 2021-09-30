@@ -5,10 +5,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import test.api.ApplicationContextRunner;
+import test.api.DefaultIntegrationRunner;
 import test.api.Integration;
 
-@RunWith(ApplicationContextRunner.class)
+/**
+ * Test the "--evaluate" option from runscript.
+ */
+@RunWith(DefaultIntegrationRunner.class)
 @Integration(
     bean = "applicationTestEvaluateProperty"
 )
@@ -25,6 +28,6 @@ public class ApplicationTestEvaluateProperty {
 
     @Test
     public void testEvaluate() {
-        Assert.assertTrue(evaluate);
+        Assert.assertTrue(String.format("Expecting true but received %s", evaluate), evaluate);
     }
 }
