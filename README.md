@@ -25,3 +25,18 @@ tar --directory=$HOME -xvf test-application/build/distributions/test-application
 ```
 $HOME/test-application/runApp --evaluate true --number 1
 ```
+
+## JUnit Runners
+
+### DefaultIntegrationRunner
+
+A more basic implementation for more custom handling - does not handle all JUnit annotations and lifecycles.
+
+### DefaultIntegrationJUnitRunner
+
+An extension of the default JUnit `BlockJUnit4ClassRunner` runner so that it handles and evaluates all JUnit annotations such as `@Ignore`, etc.
+
+## References
+
+1. [junit-ext](https://code.google.com/archive/p/junit-ext/)
+2. [Conditionally Ignoring Tests in JUnit](https://stackoverflow.com/questions/1689242/conditionally-ignoring-tests-in-junit-4)

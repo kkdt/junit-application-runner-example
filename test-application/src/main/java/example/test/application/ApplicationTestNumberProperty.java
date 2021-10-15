@@ -5,13 +5,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import test.api.DefaultIntegrationRunner;
+import test.api.DefaultIntegrationJUnitRunner;
 import test.api.Integration;
 
 /**
  * Test the "--number" option from runscript.
  */
-@RunWith(DefaultIntegrationRunner.class)
+@RunWith(DefaultIntegrationJUnitRunner.class)
 @Integration(
     bean = "applicationTestNumberProperty",
     description = "Test the \"--number\" option from runscript"

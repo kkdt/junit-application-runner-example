@@ -13,7 +13,7 @@ import test.api.runtime.ApplicationContextHolder;
  */
 public class DefaultIntegrationRunner extends Runner {
     private final Class<?> c;
-    private Integration annotation;
+    private final Integration annotation;
 
     public DefaultIntegrationRunner(Class<?> c) {
         this.c = c;
