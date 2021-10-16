@@ -3,11 +3,13 @@ package example.test.application;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import test.api.DefaultIntegrationLocator;
+import test.api.IntegrationLoggingRunListener;
 import test.api.runtime.ApplicationContextHolder;
 import test.api.runtime.DefaultConfiguration;
 
@@ -23,10 +25,20 @@ public class ApplicationConfiguration implements InitializingBean {
     @Autowired
     private ApplicationContextHolder applicationContextHolder;
 
+    @Value("${APPHOME}")
+    private String appHome;
+
     @Override
     public void afterPropertiesSet() throws Exception {
         ApplicationContext applicationContext = ApplicationContextHolder.get();
-        logger.info(String.format("Application Context found: %s", applicationContext != null));
+        logger.info(String.format("Application Context found: %s, APPHOME: %s",
+            applicationContext != null,
+            appHome));
+    }
+
+    @Bean
+    public IntegrationLoggingRunListener integrationLoggingRunListener() {
+        return new IntegrationLoggingRunListener();
     }
 
     @Bean

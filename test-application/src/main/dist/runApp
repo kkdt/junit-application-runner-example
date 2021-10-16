@@ -39,10 +39,10 @@ ${__debug}${__suspend}
 "
 else
   export JAVA_OPTS="\
--Dtest.application.evaluate=${__evaluate}
+-Dtest.application.evaluate=${__evaluate} \
 -Dtest.application.applicationNumber=${__number}
 "
 fi
 
-
+export JAVA_OPTS="${JAVA_OPTS} -DAPPHOME=${__dir}"
 ${__dir}/bin/test-application

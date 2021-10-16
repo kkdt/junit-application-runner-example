@@ -1,10 +1,12 @@
 package test.api;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
+import org.junit.runner.notification.RunListener;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
@@ -34,7 +36,9 @@ public class DefaultIntegrationLocator implements ApplicationContextAware, Initi
             logger.info(String.format("Found @Integration classes: %s, Count: %s", classes, classes.size()));
 
             JUnitCore junit = new JUnitCore();
-            junit.addListener(new IntegrationLoggingRunListener());
+            applicationContext.getBeansOfType(RunListener.class)
+                .values()
+                .forEach(junit::addListener);
             Result results = junit.run(classes.toArray(new Class<?>[0]));
             // publish test results when all tests are executed
             applicationContext.publishEvent(new IntegrationResults(this, results));

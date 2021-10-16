@@ -1,17 +1,18 @@
 package example.test.application;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import test.api.DefaultIntegrationRunner;
+import test.api.DefaultIntegrationJUnitRunner;
 import test.api.Integration;
 
 /**
  * Test the "--evaluate" option from runscript.
  */
-@RunWith(DefaultIntegrationRunner.class)
+@RunWith(DefaultIntegrationJUnitRunner.class)
 @Integration(
     bean = "applicationTestEvaluateProperty",
     description = "Test the \"--evaluate\" option from runscript"
@@ -23,6 +24,7 @@ public class ApplicationTestEvaluateProperty {
     private Boolean evaluate;
 
     @Test
+    @Ignore(value = "Forcing ignore")
     public void testEvaluateNotNull() {
         Assert.assertNotNull("The 'evaluate' variable cannot be null", evaluate);
     }

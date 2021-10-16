@@ -1,7 +1,6 @@
 package test.api.runtime;
 
 import org.apache.log4j.Logger;
-import org.junit.runner.Result;
 import org.springframework.context.ApplicationListener;
 import test.api.IntegrationResults;
 
@@ -13,7 +12,10 @@ public class IntegrationContext implements ApplicationListener<IntegrationResult
 
     @Override
     public void onApplicationEvent(IntegrationResults event) {
-        Result result = event.getResult();
-        logger.info(String.format("Failure Count: %s, Ignored: %s, Total: %s", result.getFailureCount(), result.getIgnoreCount(), result.getRunCount()));
+        IntegrationResults results = event;
+        logger.info(String.format("Failure Count: %s, Ignored: %s, Total: %s",
+            event.getResult().getFailureCount(),
+            event.getResult().getIgnoreCount(),
+            event.getResult().getRunCount()));
     }
 }
