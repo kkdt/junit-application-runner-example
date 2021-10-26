@@ -38,7 +38,7 @@ An extension of the default JUnit `BlockJUnit4ClassRunner` runner so that it han
 
 ## CSV Report Generator
 
-Using the [OpenCSV](https://mvnrepository.com/artifact/com.opencsv/opencsv) library, a default report generator is provided. 
+Using the [OpenCSV](https://mvnrepository.com/artifact/com.opencsv/opencsv) library, a default report generator is provided below ([screenshot](csv-report.png)). 
 
 ```
 # test-application/runApp --evaluate true --number -1
