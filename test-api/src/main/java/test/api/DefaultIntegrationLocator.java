@@ -36,6 +36,7 @@ public class DefaultIntegrationLocator implements ApplicationContextAware, Initi
             logger.info(String.format("Found @Integration classes: %s, Count: %s", classes, classes.size()));
 
             JUnitCore junit = new JUnitCore();
+            // find all RunListener within the Spring Application Context and attach them to the tests
             applicationContext.getBeansOfType(RunListener.class)
                 .values()
                 .forEach(junit::addListener);

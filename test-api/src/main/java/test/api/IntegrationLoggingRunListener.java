@@ -19,7 +19,7 @@ public class IntegrationLoggingRunListener extends RunListener {
         String className = description.getClassName();
         String message = failure.getMessage();
         String trace = failure.getTrace();
-        logger.error(String.format("Test failed, Class: %s, Method: %s, Message: %s", className,  method, message));
+        logger.error(String.format("Test failed, Class: %s, Method: %s, Message: %s, Header: %s", className,  method, message, failure.getTestHeader()));
     }
 
     @Override

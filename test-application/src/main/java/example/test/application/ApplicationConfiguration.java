@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import test.api.DefaultIntegrationLocator;
+import test.api.IntegrationCsvReportGenerator;
 import test.api.IntegrationLoggingRunListener;
 import test.api.runtime.ApplicationContextHolder;
 import test.api.runtime.DefaultConfiguration;
@@ -39,6 +40,11 @@ public class ApplicationConfiguration implements InitializingBean {
     @Bean
     public IntegrationLoggingRunListener integrationLoggingRunListener() {
         return new IntegrationLoggingRunListener();
+    }
+
+    @Bean
+    public IntegrationCsvReportGenerator integrationCsvReportGenerator() throws Exception {
+        return new IntegrationCsvReportGenerator(appHome);
     }
 
     @Bean
