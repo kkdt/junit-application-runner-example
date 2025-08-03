@@ -1,11 +1,22 @@
-
-apply plugin: 'application'
+plugins {
+    id 'java'
+    id 'application'
+}
 
 application {
-    mainClassName = 'example.test.application.Application'
+    mainClass.set("example.test.application.Application")
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter:2.5.5'
-    compile project(':test-api')
+    implementation 'org.slf4j:slf4j-api:2.0.13'
+    implementation project(':test-api')
+
+    implementation platform('org.springframework.boot:spring-boot-dependencies:3.4.1')
+    implementation 'org.springframework.boot:spring-boot-starter'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }

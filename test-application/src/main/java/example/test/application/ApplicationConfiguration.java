@@ -1,6 +1,7 @@
 package example.test.application;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +22,7 @@ import test.api.runtime.DefaultConfiguration;
 @Configuration
 @Import({DefaultConfiguration.class})
 public class ApplicationConfiguration implements InitializingBean {
-    private static final Logger logger = Logger.getLogger(ApplicationConfiguration.class);
+    private static final Logger logger = LoggerFactory.getLogger(ApplicationConfiguration.class);
 
     @Autowired
     private ApplicationContextHolder applicationContextHolder;
@@ -32,9 +33,9 @@ public class ApplicationConfiguration implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         ApplicationContext applicationContext = ApplicationContextHolder.get();
-        logger.info(String.format("Application Context found: %s, APPHOME: %s",
+        logger.info("Application Context found: {}, APPHOME: {}",
             applicationContext != null,
-            appHome));
+            appHome);
     }
 
     @Bean

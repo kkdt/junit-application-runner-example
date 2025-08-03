@@ -1,16 +1,17 @@
 package test.api;
 
-import org.apache.log4j.Logger;
 import org.junit.runner.Description;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Handle callbacks from JUnit by logging it out to Log4J.
  */
 public class IntegrationLoggingRunListener extends RunListener {
-    private static final Logger logger = Logger.getLogger(IntegrationLoggingRunListener.class);
+    private static final Logger logger = LoggerFactory.getLogger(IntegrationLoggingRunListener.class);
 
     @Override
     public void testFailure(Failure failure) throws Exception {
@@ -18,8 +19,8 @@ public class IntegrationLoggingRunListener extends RunListener {
         String method = description.getMethodName();
         String className = description.getClassName();
         String message = failure.getMessage();
-        String trace = failure.getTrace();
-        logger.error(String.format("Test failed, Class: %s, Method: %s, Message: %s, Header: %s", className,  method, message, failure.getTestHeader()));
+        logger.error("Test failed, Class: {}, Method: {}, Message: {}, Header: {}",
+            className,  method, message, failure.getTestHeader());
     }
 
     @Override
@@ -29,7 +30,8 @@ public class IntegrationLoggingRunListener extends RunListener {
         String className = description.getClassName();
         String message = failure.getMessage();
         String trace = failure.getTrace();
-        logger.error(String.format("Test assumption failed, Class: %s, Method: %s, Message: %s\n%s", className,  method, message, trace));
+        logger.error("Test assumption failed, Class: {}, Method: {}, Message: {}\n{}",
+            className,  method, message, trace);
     }
 
     @Override
@@ -38,16 +40,13 @@ public class IntegrationLoggingRunListener extends RunListener {
         String className = description.getClassName();
         String displayName = description.getDisplayName();
         Integration integration = description.getTestClass().getAnnotation(Integration.class);
-        logger.info(String.format("Test finished, Class: %s, Method: %s, Name: %s, Integration: %s",
-            className,
-            method,
-            displayName,
-            integration != null));
+        logger.info("Test finished, Class: {}, Method: {}, DisplayName: {}, Integration: {}",
+            className,  method, displayName, integration != null);
     }
 
     @Override
     public void testRunFinished(Result result) throws Exception {
-        logger.info(String.format("Test Run took %s (ms), Successful: %s", result.getRunTime(), result.wasSuccessful()));
+        logger.info("Test Run took {} (ms), Successful: {}", result.getRunTime(), result.wasSuccessful());
     }
 
     @Override
@@ -55,7 +54,8 @@ public class IntegrationLoggingRunListener extends RunListener {
         String method = description.getMethodName();
         String className = description.getClassName();
         String displayName = description.getDisplayName();
-        logger.info(String.format("Test Run Started, Class: %s, Method: %s, Name: %s", className, method, displayName));
+        logger.info("Test Run Started, Class: {}, Method: {}, Name: {}",
+            className, method, displayName);
     }
 
     @Override
@@ -64,11 +64,8 @@ public class IntegrationLoggingRunListener extends RunListener {
         String className = description.getClassName();
         String displayName = description.getDisplayName();
         Integration integration = description.getTestClass().getAnnotation(Integration.class);
-        logger.info(String.format("Test Started, Class: %s, Method: %s, Name: %s, Integration: %s",
-            className,
-            method,
-            displayName,
-            integration != null));
+        logger.info("Test Started, Class: {}, Method: {}, Name: {}, Integration: {}",
+            className, method, displayName, integration != null);
     }
 
     @Override
@@ -77,10 +74,7 @@ public class IntegrationLoggingRunListener extends RunListener {
         String className = description.getClassName();
         String displayName = description.getDisplayName();
         Integration integration = description.getTestClass().getAnnotation(Integration.class);
-        logger.info(String.format("Test Ignored, Class: %s, Method: %s, Name: %s, Integration: %s",
-            className,
-            method,
-            displayName,
-            integration != null));
+        logger.info("Test Ignored, Class: {}, Method: {}, Name: {}, Integration: {}",
+            className, method, displayName, integration != null);
     }
 }

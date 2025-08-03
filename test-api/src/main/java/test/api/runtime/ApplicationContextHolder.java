@@ -1,6 +1,7 @@
 package test.api.runtime;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -11,7 +12,7 @@ import org.springframework.context.ConfigurableApplicationContext;
  * within a Spring application; otherwise, null will be returned.
  */
 public class ApplicationContextHolder implements ApplicationContextAware {
-    private static final Logger logger = Logger.getLogger(ApplicationContextHolder.class);
+    private static final Logger logger = LoggerFactory.getLogger(ApplicationContextHolder.class);
     private static ApplicationContext ctx;
 
     @Override

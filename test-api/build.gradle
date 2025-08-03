@@ -1,6 +1,19 @@
+plugins {
+    id 'java-library'
+}
 
 dependencies {
-    compile 'log4j:log4j:1.2.17'
-    implementation 'org.springframework:spring-context:5.3.10'
-    implementation 'com.opencsv:opencsv:5.3'
+    api libs.junit
+    api 'org.springframework:spring-context:6.2.1'
+    api 'com.opencsv:opencsv:5.3'
+
+    implementation 'org.slf4j:slf4j-api:2.0.13'
+
+    testImplementation libs.junit
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
